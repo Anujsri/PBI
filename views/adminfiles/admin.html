@@ -1,0 +1,850 @@
+<div class="wrapper" >
+    <!-- Sidebar Holder -->
+    <nav id="sidebar" style="background-color: #343E54 ">
+        <div class="sidebar-header" style="background-color: #343E54;">
+        </br>
+            <h3 style="color: white;margin-top: 20px;font-family: 'Poppins', sans-serif;">ORGANIC AIBI</h3>
+            <strong><img src="/img/user.png" style="margin-top: 20px" class="img-responsive"></strong>
+        </div>
+        <ul class="list-unstyled components" style="margin-top: -20px">
+            <li class="active">
+                <a href="#home" data-toggle="pill"><i class="fa fa-bar-chart-o"></i> Analytics</a></li>
+            <li><a data-toggle="pill" href="#product" ><i class="fa fa-search"></i> Products</a> </li>
+            <li><a data-toggle="pill" href="#vendors"><i class="fa fa-user"></i> Vendors</a></li>
+            <li><a data-toggle="pill" href="#vendorrequest"><i class="fa fa-folder-open-o"></i> Vendor Requests 
+                <span class="badge pull-right" id="vrequest"></span></a>
+            </li>
+            <li><a data-toggle="pill" href="#productrequest"  >
+                <i class="fa fa-folder-open-o"></i> Products Requests <span class="badge pull-right" id="prequest"></span></a>
+            </li>
+           
+            <li><a  href="/admin/bidding/">
+                <i class="fa fa-hourglass-start" aria-hidden="true"></i> Start Bidding</a>
+            </li>
+        </ul>     
+    </nav>
+
+    <!-- Page Content Holder -->
+    <div id="content" style="margin-top: 3%;background-image: linear-gradient(to right top, #aed6f1, #bee1f1, #d1ebf3, #e6f4f6, #fbfcfc);">
+        <button type="button" id="sidebarCollapse" style="position: fixed;margin-left: -18px" >
+            <div class="contain" onclick="myFunction(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>        
+        </button> 
+
+        <div class="tab-content"> 
+            <div id="home" class="tab-pane fade in active">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Main content -->
+                        <section class="content">
+                            <!-- Analytics Graph -->
+                            <div class="row">
+                                <a onclick="graphs();" href="#pricechart">
+                                <input  hidden id="anuj" value="{{{encodedJson3}}}"/>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <div class="info-box">
+                                        <span class="info-box-icon bg-aqua"><i class="fa fa-rupee"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Price Chart</span>
+                                            <span class="info-box-number">Show Graph</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                                <!-- /.col -->
+                                <a onclick="g2();" href="#price_vs_product">
+                                <input  hidden id="harsh" value="{{{encodedJson2}}}"/>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <div class="info-box">
+                                        <span class="info-box-icon bg-red"><i class="fa fa-shopping-cart"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Price Vs Product</span>
+                                            <span class="info-box-number">Show Graph</span>
+                                        </div>                                      
+                                    </div>
+                                </div>
+                                </a>
+                                <!-- /.col -->
+                                <!-- fix for small devices only -->
+                                <a onclick="g6();" href="#top_performancer">
+                                 <input  hidden id="anu" value="{{{encodedJson2}}}"/>
+                                <div class="clearfix visible-sm-block"></div>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <div class="info-box">
+                                        <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Top performancer</span>
+                                            <span class="info-box-number">Show Graph</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                                <!-- /.col -->
+                                <a onclick="g5();" href="#state_wise_analysis">
+                                <input  hidden id="loc" value="{{{encodedJson3}}}"/>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <div class="info-box">
+                                        <span class="info-box-icon bg-yellow"><i class="fa fa-map-marker"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">State Wise Analysis</span>
+                                            <span class="info-box-number">Show Graph</span>
+                                        </div>       
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+
+                            <!-- Main row -->
+                            <div class="row">
+                                <!-- Left col -->
+                                <div class="col-md-8">
+                                    <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+                                </div>
+       
+                                <div class="col-md-4">
+                                    <!-- Info Boxes Style 2 -->
+                                    <a onclick="g9();" href="#date_wise_analysis">
+                                    <input  hidden id="date" value="{{{encodedJson3}}}"/>
+                                    <div class="info-box bg-yellow">
+                                        <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Date wise analysis</span>
+                                            <span class="info-box-number">Show Graph</span>
+                                            
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                    </div>
+                                    </a>
+                                    <!-- /.info-box -->
+                                    <a onclick="g8();" href="#city_Wise_Analysis">
+                                    <input  hidden id="city" value="{{{encodedJson3}}}"/>
+                                    <div class="info-box bg-green">
+                                        <span class="info-box-icon"><i class="fa fa-map-marker"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">City Wise Analysis</span>
+                                            <span class="info-box-number">Show Graph</span>
+                                            
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                    </div>
+                                    </a>
+                                    <!-- /.info-box -->
+                                    <a onclick="g10();" href="#quantity_wise_analysis">
+                                    <input  hidden id="qty" value="{{{encodedJson4}}}"/>
+                                    <div class="info-box bg-red">
+                                        <span class="info-box-icon"><i class="fa fa-balance-scale"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Quantity Wise Analysis</span>
+                                            <span class="info-box-number">Show Graph</span>
+                                           
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                    </div>
+                                    </a>
+                                    <!-- /.info-box -->
+                                    <a href="/">
+                                    <div class="info-box bg-aqua">
+                                        <span class="info-box-icon"><i class="fa fa-home"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-number" style="margin-top: 15px">Go To Home Page</span>
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                    </div>
+                                    </a>
+                                    <!-- /.info-box --> 
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </section>
+                        <!-- /.content -->
+                    </div>
+                </div> 
+            </div>
+            <!-- Graph Page End -->
+
+            <!-- Show All Products -->
+            <div id="product" class="tab-pane fade">
+                <div class="container-fluid" style="margin-top: 1%;"> 
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-shopping-cart fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge" >{{len}}</div>
+                                            <b>Total Products</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="panel panel-green">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-tasks fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge" id="kind"></div>
+                                            <b>Kind Of Product</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#differentproduct" onclick="kindProduct();">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="panel panel-yellow">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-truck fa-5x"></i>     
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge" id="totalorder"></div>
+                                            <div><b>Total Orders!</b> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#orderedproducts" onclick="orderedProduct();">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-users fa-5x"></i>
+                                            
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge" id="totalcustomers"></div>
+                                            <div><b>Total Customers!</b> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#allcustomer" onclick="allCustomer();">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /.row -->
+                    <div class="row" style="border-top:3px solid #FBFCFC  ; ">
+                        <!-- /.col-lg-8 -->
+                        <div class="col-md-8 col-sm-12">
+                            <div class="tab-content"> 
+                                <div id="high_to_low_products" class="tab-pane fade in active">
+                                </br>
+                                    <div class="row">
+                                        <h4><div class="well" style="font-family: 'Poppins', sans-serif;color: white">
+                                            <center>Descending Products By Price</center></div></h4>   
+                                    </div>
+                                    
+                                    {{#if productdescen}}
+                                        {{#each productdescen}}
+                                            <div class="col-xs-12 col-sm-6 col-md-4   wow fadeInLeft ">
+                                                <div class="thumbnail   hovereffect" style="background-color: #257778  ">
+                                                    <img class="img-responsive" src="https://www.dahu.bio/images/photos/agriculture/organic-product.jpg" alt="">
+                                                    <div class="overlay">
+                                                        <h2>Price : <i class="fa fa-inr"></i> {{this.price}}</h2>
+                                                        </br>
+                                                        <a data-toggle="pill" onclick="productDetail('{{this._id}}');"  
+                                                        class="btn btn-primary  " href="#productdetails">Details</a> 
+                                                    </div>
+                                                     
+                                                    </br  >
+                                                    <div class="row"><h4 id="price" class="text-center" style="color: white"> {{this.productname}} </h4> 
+                                                   </br>
+                                                    </div>      
+                                                </div>
+                                            </div>     
+                                        {{/each}}
+                                    {{/if}}
+                                </div>
+                                <div id="low_to_high_products" class="tab-pane fade">
+                                    </br>
+                                    <div class="row">
+                                        <h4><div class="well" style="font-family: 'Poppins', sans-serif;color: white">
+                                            <center>Ascending Products By Price</center></div></h4>   
+                                    </div>
+                                    {{#if productascen}}
+                                        {{#each  productascen}}
+                                          <div class="col-xs-12 col-sm-6 col-md-4 wow fadeInLeft ">
+                                                <div class="thumbnail   hovereffect" style="background-color: #257778  ">                         
+                                                    <img class="img-responsive" src="https://www.dahu.bio/images/photos/agriculture/organic-product.jpg" alt="">
+                                                    <div class="overlay">
+                                                        <h2>Price : <i class="fa fa-inr"></i> {{this.price}}</h2>
+                                                        </br>
+                                                        <a data-toggle="pill" onclick="productDetail('{{this._id}}');"  
+                                                        class="btn btn-primary  " href="#productdetails">Details</a> 
+                                                    </div>
+                                                     
+                                                    </br  >
+                                                    <div class="row"><h4 id="price" class="text-center" style="color: white"> {{this.productname}} </h4> 
+                                                   </br>
+                                                    </div>      
+                                                </div>
+                                            </div>    
+                                        {{/each }}
+                                    {{/if}}
+                                </div>
+                                <div id="new_products" class="tab-pane fade">
+                                    </br>
+                                    <div class="row">
+                                        <h4><div class="well" style="font-family: 'Poppins', sans-serif;color: white">
+                                            <center>New Added Products</center></div>
+                                        </h4>   
+                                    </div>
+                                    {{#if product}}
+                                        {{#each  product}}
+                                            <div class="col-xs-12 col-sm-6 col-md-4  wow fadeInLeft ">
+                                                <div class="thumbnail   hovereffect" style="background-color: #257778">
+                                                    <img class="img-responsive" src="https://www.dahu.bio/images/photos/agriculture/organic-product.jpg" alt="">
+                                                    <div class="overlay">
+                                                        <h2>Price : <i class="fa fa-inr"></i> {{this.price}}</h2>
+                                                        </br>
+                                                        <a data-toggle="pill" onclick="productDetail('{{this._id}}');"class="btn btn-primary  " href="#productdetails">Details</a> 
+                                                    </div>
+                                                     
+                                                    </br  >
+                                                    <div class="row"><h4 id="price" class="text-center" style="color: white"> {{this.productname}} </h4> 
+                                                   </br>
+                                                    </div>      
+                                                </div>
+                                            </div>    
+                                        {{/each }}
+                                    {{/if}}
+                                </div> 
+                                <div id="productdetails" class="tab-pane fade">
+                                <!-- Show product details -->
+                                    </br>
+                                    </br>
+                                    <div class="panel panel-primary" >
+                                         <div class="panel-heading">
+                                                <i class="fa fa-info-circle fa-fw" ></i>
+                                                
+                                                 <b>Detail of Product</b> 
+                                            </div>
+                                        <div class="panel-body" style="font-family: 'Poppins', sans-serif;">
+                                           
+                                            <div class="row">
+                                                <div class="col-md-3 col-sm-12" >
+                                                   <img class="img-responsive" src="https://www.dahu.bio/images/photos/agriculture/organic-product.jpg" alt="">
+                                                   </br>
+                                                    <button type="submit" class="btn btn-info" style="color: blue" data-toggle="modal" data-target="#myModal1" onclick="manufactureName();"><b style="color: white">See Manufacturer</b> </button>
+                                                </div>
+                                                <div class="col-md-1 col-xs-12"></div>
+                                                <div class="col-md-8 col-sm-12" >  
+                                                    </p><div id="pdescription"></div></p>
+                                                    <ul class="list-group" >
+                                                        <li class="list-group-item">
+                                                            <div class="row">
+                                                                <div class="col-sm-5"><b>Product Name</b></div>
+                                                                <div class="col-sm-1"><b>:</b></div>
+                                                                <div class="col-sm-6"><div id="pproductname"></div></div>
+                                                            </div>
+                                                             
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div class="row">
+                                                                <div class="col-sm-5"><b>Product Category</b></div>
+                                                                <div class="col-sm-1"><b>:</b></div>
+                                                                <div class="col-sm-6"><div id="pcategory"></div></div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div class="row">
+                                                                <div class="col-sm-5"><b>Product SubCategory</b></div>
+                                                                <div class="col-sm-1"><b>:</b></div>
+                                                                <div class="col-sm-6"><div id="psubcategory"></div> </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div class="row">
+                                                                <div class="col-sm-5"><b>Product Weight</b></div>
+                                                                <div class="col-sm-1"><b>:</b></div>
+                                                                <div class="col-sm-6"><div id="pweight"></div></div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div class="row">
+                                                                <div class="col-sm-5"><b>Product Quantity</b></div>
+                                                                <div class="col-sm-1"><b>:</b></div>
+                                                                <div class="col-sm-6"><div id="pquantity"></div></div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div class="row">
+                                                                <div class="col-sm-5"><b>Product Price</b></div>
+                                                                <div class="col-sm-1"><b>:</b></div>
+                                                                <div class="col-sm-6"><div id="pprice"></div></div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div class="row">
+                                                                <div class="col-sm-5"><b>Product Manufacturing Date</b></div>
+                                                                <div class="col-sm-1"><b>:</b></div>
+                                                                <div class="col-sm-6"><div id="pmanufacturingdate"></div></div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div class="row">
+                                                                <div class="col-sm-5"><b>Best Before</b></div>
+                                                                <div class="col-sm-1"><b>:</b></div>
+                                                                <div class="col-sm-6"><div id="pbestbefore"></div></div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div class="row">
+                                                                <div class="col-sm-5"><b>Product Location</b></div>
+                                                                <div class="col-sm-1"><b>:</b></div>
+                                                                <div class="col-sm-6"><div id="plocation"></div></div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div class="row">
+                                                                <div class="col-sm-4"><div id="pcity"></div> </div>
+                                                                <div class="col-sm-4"><div id="pstate"></div> </div>
+                                                                <div class="col-sm-4"><div id="pzip"></div> </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>     
+                                </div>     
+                            </div>         
+                        </div>
+                        <!-- /.col-lg-8 -->
+
+                        <div class="col-md-4 col-sm-12" >
+                             </br>
+                             </br>
+                            <div class="panel panel-primary "  >
+                                <div class="panel-heading">
+                                    <i class="fa fa-filter fa-fw" aria-hidden="true"></i><b>Filter Panel</b> 
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="list-group">
+                                        <a href="#high_to_low_products" class="list-group-item " data-toggle="pill">
+                                            <i class="fa fa-sort-down fa-fw"></i>
+                                            <b>High To Low</b> 
+                                        </a> 
+                                        <a href="#low_to_high_products" class="list-group-item" data-toggle="pill">
+                                            <i class="fa fa-sort-up fa-fw"></i>
+                                             <b>Low to High</b> 
+                                             
+                                        </a>
+                                        <a href="#" class="list-group-item" data-toggle="pill">
+                                            <i class="fa fa-tasks fa-fw"></i><b>Product By Name</b>     
+                                        </a>
+                                        <a href="#new_products" class="list-group-item" data-toggle="pill">
+                                            <i class="fa fa-upload fa-fw"></i><b>Newly Uploaded Products</b>    
+                                        </a>    
+                                    </div>   
+                                </div>
+                                <!-- /.panel-body -->
+                            </div>  
+                        </div>
+                        <!-- /.col-lg-4 -->
+                    </div>
+                    <!-- /.row -->
+                </div> 
+            </div>
+            <!-- End Show All Products -->
+
+            <!-- Start Show All Vendors -->
+              
+              <div id="vendors" class="tab-pane fade">
+                <div class="container-fluid" style="margin-top: 1%;"> 
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-users fa-3x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge" id="kind"></div>
+                                            <b>Total Vendors</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#totalvendors" data-toggle="pill">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="panel panel-green">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-check fa-3x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge" id="kind"></div>
+                                            <b>Accepted</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#accepted" data-toggle="pill">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-close fa-3x"></i>     
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge" id="totalorder"></div>
+                                            <div><b>Rejected</b></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#rejected" data-toggle="pill">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="panel panel-yellow">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-map-marker fa-3x"></i>
+                                            
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge" id="totalcustomers"></div>
+                                            <div><b>From Different States</b> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div> 
+                    <hr style=" border-top: 2px solid #ccc;">
+
+                    <div class="tab-content">
+                        <div id="totalvendors" class="tab-pane fade in active">
+                            <div class="row">
+                                <h4><div class="well" style="font-family: 'Poppins', sans-serif;color: white">
+                                    <center>All Vendors</center></div>
+                                </h4>   
+                            </div>
+                            <div class="row">
+                                {{#if manufacturer}}  
+                                    {{#each manufacturer}}
+                                    <div class="col-xs-12 col-sm-6 col-md-3  wow fadeInLeft ">
+                                        <div class="thumbnail   hovereffect">
+                                            <img class="img-responsive" src="http://icons.iconarchive.com/icons/icons-land/vista-people/256/Person-Male-Light-icon.png" style="background-color: maroon">
+                                            <div class="overlay">
+                                                <h2>Vendor : {{this.usertype}}</h2>
+                                                </br>
+                                                <a data-toggle="pill" onclick="vendorDetail('{{this._id}}');" class="btn btn-primary" href="#vendordetails" >Details</a> 
+                                                
+                                            </div>  
+                                            </br  >
+                                            <div class="row"><h4 class="text-center"  > 
+                                                Name : {{this.name}}</h4> 
+                                                </br>
+                                            </div>      
+                                        </div>
+                                    </div>    
+                                   {{/each}}    
+                                {{else}}
+                                    <center>Any Manufacturer has not requested yet.</center>
+                                {{/if}}       
+                            </div>
+                        </div>
+
+                        <div id="accepted" class="tab-pane fade">
+                            <div class="row">
+                                <h4><div class="well" style="font-family: 'Poppins', sans-serif;color: white">
+                                    <center>Accepted Vendors</center></div>
+                                </h4>   
+                            </div>
+                            <div class="row">
+                                {{#if manufacturer}}  
+                                    {{#each manufacturer}}
+                                    {{#if this.status}}
+                                    <div class="col-xs-12 col-sm-6 col-md-3  wow fadeInLeft ">
+                                        <div class="thumbnail hovereffect">
+                                            <img class="img-responsive" src="http://icons.iconarchive.com/icons/icons-land/vista-people/256/Person-Male-Light-icon.png" style="background-color: maroon">
+                                            <div class="overlay">
+                                                <h2>Vendor : {{this.usertype}}</h2>
+                                                </br>
+                                                <a data-toggle="pill" onclick="vendorDetail('{{this._id}}');" class="btn btn-primary" href="#vendordetails" >Details</a>    
+                                            </div>  
+                                            </br>
+                                            <div class="row"><h4 class="text-center"  > 
+                                                Name : {{this.name}}</h4> 
+                                                </br>
+                                            </div>      
+                                        </div>
+                                    </div> 
+                                    {{/if}}   
+                                    {{/each}}    
+                                {{else}}
+                                    <center>Any Manufacturer has not requested yet.</center>
+                                {{/if}}       
+                            </div>
+                        </div>
+
+                        <div id="rejected" class="tab-pane fade">
+                            <div class="row">
+                                <h4><div class="well" style="font-family: 'Poppins', sans-serif;color: white">
+                                    <center>Accepted Vendors</center></div>
+                                </h4>   
+                            </div>
+                            <div class="row">
+                                {{#if manufacturer}}  
+                                    {{#each manufacturer}}
+                                    {{#if this.status}}
+                                    <center><h4>You Accepted All The Request</h4></center>
+                                    {{else}}
+                                    <div class="col-xs-12 col-sm-6 col-md-3  wow fadeInLeft ">
+                                        <div class="thumbnail hovereffect">
+                                            <img class="img-responsive" src="http://icons.iconarchive.com/icons/icons-land/vista-people/256/Person-Male-Light-icon.png" style="background-color: maroon">
+                                            <div class="overlay">
+                                                <h2>Vendor : {{this.usertype}}</h2>
+                                                </br>
+                                                <a data-toggle="pill" onclick="vendorDetail('{{this._id}}');" class="btn btn-primary" href="#vendordetails" >Details</a>    
+                                            </div>  
+                                            </br>
+                                            <div class="row"><h4 class="text-center"  > 
+                                                Name : {{this.name}}</h4> 
+                                                </br>
+                                            </div>      
+                                        </div>
+                                    </div> 
+                                    {{/if}}   
+                                    {{/each}}    
+                                {{else}}
+                                    <center>Any Manufacturer has not requested yet.</center>
+                                {{/if}}       
+                            </div>
+                        </div>
+
+                        <div id="vendordetails" class="tab-pane fade">           
+                        <div class="panel panel-primary">
+                            <div class="panel-body" style="font-family: 'Poppins', sans-serif;">
+                                <div class="row">
+                                    <div class="col-md-3" >
+                                        <img class="thumbnail" src="http://icons.iconarchive.com/icons/icons-land/vista-people/256/Person-Male-Light-icon.png" height="250x" width="250" class="img-responsive" style="background-color: maroon">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <div class="row">
+                                                    <div class="col-sm-5"><b>Name</b></div>
+                                                    <div class="col-sm-1"><b>:</b></div>
+                                                    <div class="col-sm-6"><div id="mname"></div></div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="row">
+                                                    <div class="col-sm-5"><b>Email</b></div>
+                                                    <div class="col-sm-1"><b>:</b></div>
+                                                    <div class="col-sm-6"><div id="memail"></div></div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="row">
+                                                    <div class="col-sm-5"><b>Mobile No.</b></div>
+                                                    <div class="col-sm-1"><b>:</b></div>
+                                                    <div class="col-sm-6"><div id="mphone"></div></div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="row">
+                                                    <div class="col-sm-5"><b>Address</b></div>
+                                                    <div class="col-sm-1"><b>:</b></div>
+                                                    <div class="col-sm-6"><div id="maddress"></div> </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="row">
+                                                    <div class="col-sm-5"><b>City</b></div>
+                                                    <div class="col-sm-1"><b>:</b></div>
+                                                    <div class="col-sm-6"><div id="mncity"></div></div>
+                                                </div>
+                                            </li>
+                                             <li class="list-group-item">
+                                                <div class="row">
+                                                    <div class="col-sm-5"><b>State</b></div>
+                                                    <div class="col-sm-1"><b>:</b></div>
+                                                    <div class="col-sm-6"><div id="mstate"></div></div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="row">
+                                                    <div class="col-sm-5"><b>State</b></div>
+                                                    <div class="col-sm-1"><b>:</b></div>
+                                                    <div class="col-sm-6"><div id="mzip"></div></div>
+                                                </div>
+                                            </li>
+                                        </ul>   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>     
+                    </div>  
+                </div> 
+            </div>
+            <!-- End Show All Vendors -->
+
+        </div>   
+          
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal1" role="dialog" style="margin-top: 80px">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <b class="modal-title">Manufacturer Detail</b>  
+            </div>
+            <div class="modal-body" style="font-family: 'Poppins', sans-serif;">
+                <div id="loader"></div>
+                <div id="wait">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-info">Information of Vendor of this product</li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-sm-5"><b>  Name</b></div>
+                                <div class="col-sm-1"><b>:</b></div>
+                                <div class="col-sm-6"><div id="name"></div></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-sm-5"><b>  Email</b></div>
+                                <div class="col-sm-1"><b>:</b></div>
+                                <div class="col-sm-6"><div id="email"></div></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-sm-5"><b>  Phone</b></div>
+                                <div class="col-sm-1"><b>:</b></div>
+                                <div class="col-sm-6"><div id="phone"></div></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-sm-5"><b>  Address</b></div>
+                                <div class="col-sm-1"><b>:</b></div>
+                                <div class="col-sm-6"><div id="address"></div></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-sm-5"><b>  City</b></div>
+                                <div class="col-sm-1"><b>:</b></div>
+                                <div class="col-sm-6"><div id="mcity"></div></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-sm-5"><b>  State</b></div>
+                                <div class="col-sm-1"><b>:</b></div>
+                                <div class="col-sm-6"><div id="state"></div></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-sm-5"><b>  Pin Code</b></div>
+                                <div class="col-sm-1"><b>:</b></div>
+                                <div class="col-sm-6"><div id="zip"></div></div>
+                            </div>
+                        </li>
+                    </ul> 
+                </div> 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../js/graph.js"></script> 
+   <!-- showing notification send by Admin -->
+
+<script src="../js/admin.js"></script> 
+ 
+  <script>
+   
+function myFunction(x) {
+    x.classList.toggle("change");
+}
+
+</script>     
+ 

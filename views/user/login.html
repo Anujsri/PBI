@@ -1,0 +1,38 @@
+<div class="top-content2 img-responsive" style="background-image: url('/img/backgrounds/spices.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6" >
+                <div style=" background: rgba(0,0,0, 0.4);" class="panel panel-primary ">
+                    <div class="panel-heading">Login Form</div>
+                    <div class="panel-body">
+                        <div class="modal-body">
+                            <form role="form" class="form-horizontal" method="post" action="/users/login">
+                                <div class="wrap-input100 validate-input"  >
+                                    <span class="label-input100" style="color: white">Username</span>
+                                    <input class="input100" type="text" name="username" placeholder="Username..." required>
+                                    <span class="focus-input100"></span>
+                                </div>
+                                <div class="wrap-input100 validate-input" >
+                                    <span class="label-input100" style="color: white">Password</span>
+                                    <input style="color: white" class="input100" type="password" name="password" placeholder="**************" required>
+                                    <span class="focus-input100"></span>
+                                </div>
+                                <input type="hidden" name="_csrf" value="{{csrfToken}}"> 
+                                    <center><img src="/img/lo.jpg" height="40px" width="40px">
+                                        <button type="submit" class="btn btn-danger btn-md"  style="font-size: 20px">Login </button>
+                                    </center>   
+                             </form>
+                        </div>   
+                    </div>
+                    <div class="panel-footer">
+                        <a style="text-decoration: none">Forgot your password?</a>
+                        <div class="pull-right">
+                            <a href="/users/register/"><b>Create an Account</b> </a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>

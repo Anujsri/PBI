@@ -1,0 +1,129 @@
+<div id="here">
+  <div class="container">
+  <a href="/"><b style="color:blue"><span class="glyphicon glyphicon-backward"></span> Go back</b></a>
+  {{# if products}}  
+    <div class="row">
+      <div class="col-md-8">
+        {{#each products}}
+          <div class="row">
+            <div class="panel panel-primary">
+              <div class="panel-body">
+                <div class="col-md-3 thumbnail" >
+                  <img   src="{{this.item.product_image}}" class="img-responsive" style="background-color:blue">
+                </div>
+                <div class="col-md-8">
+                  <ul class="list-group">
+                    <li class="list-group-item">Product Name : {{this.item.productname}}</li>
+                    <li class="list-group-item">Product Quantity : {{this.qty}}</li>
+                    <li class="list-group-item">Product Price : <i class="fa fa-inr"></i>{{this.price}}</li>
+                    <li class="list-group-item">Product Weight : {{this.item.weight}} </li>
+                  </ul> 
+                  <div class="pull-right">       
+                    <button onclick="reduceProduct('{{this.item._id}}');" data-toggle="modal" data-target="#myModal1" class="btn btn-primary">Remove By 1</button>
+                    <button onclick="removeAllProduct('{{this.item._id}}');" data-toggle="modal" data-target="#myModal1" class="btn btn-danger">Remove All</button>
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+      <div class="col-md-4">
+        <div class="row"><div class="col-sm-5 col-sm-offset-1 "><b>Coupons</b></div>
+        <div class="col-sm-6" ><button class="btn btn-default" >Apply Coupon</button></div>
+      </div>
+      <hr>
+      <center><strong>Price Detail</strong></center>
+      <hr>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div class="row"> 
+            <div class="col-sm-6">Bag Total </div> 
+            <div class="col-sm-6"><i class="fa fa-inr"></i>{{totalPrice}}</div> 
+          </div>  
+        </li>
+        <li class="list-group-item">
+          <div class="row"> 
+            <div class="col-sm-6">Bag Discount </div> 
+            <div class="col-sm-6"><i class="fa fa-inr"></i> </div> 
+          </div>  
+        </li>
+        <li class="list-group-item">
+          <div class="row"> 
+            <div class="col-sm-6">Estimated Tax </div> 
+            <div class="col-sm-6"><i class="fa fa-inr"></i> </div> 
+          </div>  
+        </li>
+        <li class="list-group-item">
+          <div class="row"> 
+            <div class="col-sm-6">Coupon Discount </div> 
+            <div class="col-sm-6"><i class="fa fa-inr"></i> </div> 
+          </div>  
+        </li>
+        <li class="list-group-item">
+          <div class="row"> 
+            <div class="col-sm-6">Delivery Charge </div> 
+            <div class="col-sm-6"><i class="fa fa-inr"></i> </div> 
+          </div>  
+        </li>
+        <hr>
+      </ul> 
+      <div class="row"> 
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5">Order Total </div> 
+        <div class="col-sm-6"><i class="fa fa-inr"></i>{{totalPrice}}</div> 
+      </div> 
+      <hr>
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <a href="/checkout">
+          <div class="col-sm-10" style="background-color:#14D7F6" id="sha">
+            <center><h3 style="color: white;padding-bottom: 3px">Place Order</h3></center> 
+          </div> 
+        </a> 
+      </div>
+    </div>
+  </div>
+  {{else}}
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <strong>No Items in Cart</strong>
+      </div>
+    </div>
+  {{/if}}   
+</div>
+    
+</div>
+
+
+
+<div class="modal fade" id="myModal1" role="dialog" style="margin-top: 80px">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+             <h4 class="text-info">Product is removed</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>   
+    </div>
+</div>
+
+<script>
+ function reduceProduct(id){
+    axios.get('/reduce/' + id).then(function(response){
+      //alert("Product is removed");
+      $( "#refresh" ).load(window.location.href + " #refresh" );
+      $( "#here" ).load(window.location.href + " #here" );
+    });
+ }
+
+ function removeAllProduct(id){
+    axios.get('/remove/' + id).then(function(response){
+      $( "#refresh" ).load(window.location.href + " #refresh" );
+      $( "#here" ).load(window.location.href + " #here" );
+    });
+ }
+</script>

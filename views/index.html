@@ -1,0 +1,219 @@
+<div id="here">
+    <div class="top-content ">
+        <div class="container wow zoomIn">
+            <div class="row">
+                <div class="col-sm-12 text">
+                    <p style=" text-align: center; font-family: 'Poppins', sans-serif;font-size: 35px; color: white">
+                        Introduce First time In India.... Organic Products with exact Coordinates of the Field.
+                    </p>  
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Features -->
+    <div class="features-container section-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 features section-description wow fadeIn">
+                    <h2 style=" text-align: center;">Our Organic Products</h2>
+                    <div class="divider-1"><div class="line"></div></div>
+                </div>
+            </div>
+            <div class="row">  
+                 
+                <div class="col-xs-12 col-sm-6 col-md-12 features-box wow fadeInLeft">
+                    <div class="row">
+                        {{#if product}}
+                        {{#each product}}
+                            <div class="col-xs-12 col-sm-6 col-md-3 features-box wow fadeInLeft">
+                                <div class="thumbnail clearfix">
+                                    <img src="{{this.product_image}}" class="img-responsive">
+                                    <div class="caption">
+                                        <h4 id="price"><center>{{this.productname}}</br>
+                                            Price : <i class="fa fa-inr"></i> {{this.price}}</center>
+                                        </h4>
+                                        <a data-toggle="pill" onclick="productDetail('{{this._id}}');"  
+                                        class="btn btn-primary pull-left" href="#productdetails">Details</a> 
+
+                                        <button onclick="addCart('{{this._id}}')" class="btn btn-warning btn-md pull-right" data-toggle="modal" data-target="#myModal2" role="button">ADD To Cart</button>
+                                    </div>
+                                </div>
+                            </div>                        
+                        {{/each}}  
+                        {{else}}
+                        <center><h3>We don't have any product</h3></center>
+                        {{/if}}
+                    </div>
+                 
+            </div>
+
+
+        </div>
+    </div>
+</div>          
+
+
+<div class="modal fade" id="myModal1" role="dialog" style="margin-top: 80px">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Manufacturer Detail</h4>
+        </div>
+        <div class="modal-body">
+          <div id="loader"></div>
+          <div id="wait">
+          <ul class="list-group">
+              <li class="list-group-item list-group-item-info">Information of Manufacture of this product</li>
+              <li class="list-group-item"><div id="name"></div> </li>
+              <li class="list-group-item"><div id="email"></div> </li>
+              <li class="list-group-item"><div id="phone"></div> </li>
+              <li class="list-group-item"><div id="address"></div> </li>
+              <li class="list-group-item"><div id="mcity"></div> </li>
+              <li class="list-group-item"><div id="state"></div> </li>
+              <li class="list-group-item"><div id="zip"></div> </li>
+
+          </ul> 
+          </div> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+<div class="modal fade" id="myModal2" role="dialog" style="margin-top: 80px">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+             <h4 class="text-info">Product is Added</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>   
+    </div>
+</div>
+
+<script>
+var id2;   
+function productDetail(id){
+  myVar = setTimeout(showPage1, 2500);
+    axios.get('/product/productdetail/'+id).then(function(response){
+        document.getElementById('pdescription').innerHTML = response.data.description;
+        document.getElementById('pproductname').innerHTML = response.data.productname;
+        document.getElementById('pcategory').innerHTML ="Category : " +  response.data.category;
+        document.getElementById('psubcategory').innerHTML = "Subcategoryb : " + response.data.subcategory;
+        document.getElementById('pweight').innerHTML = "Weight : " + response.data.weight;
+        document.getElementById('pquantity').innerHTML ="Quantity : " + response.data.quantity;
+        document.getElementById('pprice').innerHTML ="Price : "  + response.data.price;
+        document.getElementById('pmanufacturingdate').innerHTML ="Manufacturing Date : " + response.data.manufacturingdate;
+        document.getElementById('pbestbefore').innerHTML ="Best Before : " + response.data.bestbefore;
+        document.getElementById('plocation').innerHTML ="Location : " + response.data.location;
+        document.getElementById('pcity').innerHTML ="City : " +  response.data.city;
+        document.getElementById('pstate').innerHTML ="State : " +  response.data.state;
+        document.getElementById('pzip').innerHTML ="zip : " + response.data.zip;
+
+        document.getElementById("image").src = response.data.product_image;
+        id2 = response.data._id;
+         
+
+    });
+}
+
+function addCart(id){
+    axios.get('/add-to-cart/'+id).then(function(response){
+        $( "#refresh" ).load(window.location.href + " #refresh" );
+    });
+}
+
+function manufactureName(){
+    myVar1 = setTimeout(showPage, 2500); 
+    axios.get('/manufacture/detail/'+ id2).then(function(response){
+      document.getElementById('name').innerHTML = "Name : "+response.data.name;
+      document.getElementById('email').innerHTML = "Email : "+response.data.email;
+      document.getElementById('phone').innerHTML = "MobileNo : "+response.data.phone;
+      document.getElementById('address').innerHTML = "Address : "+response.data.address;
+      document.getElementById('mcity').innerHTML = "City : "+response.data.city;
+      document.getElementById('state').innerHTML = "State : "+response.data.state;
+      document.getElementById('zip').innerHTML = "Pin Code : "+response.data.zip;  
+  }); 
+}
+
+function addtoCart(){
+  axios.get('/add-to-cart/'+id2).then(function(response){
+        $( "#refresh" ).load(window.location.href + " #refresh" );
+    });
+}
+
+function showPage(){
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("wait").style.display = "block";
+    
+}
+ 
+function showPage1(){
+       document.getElementById("loader1").style.display = "none";
+      document.getElementById("wait1").style.display = "block";
+    
+} 
+
+  function lowtohigh(){
+      axios.get('/product/lowToHigh/').then(function(response){
+            console.log("name : " + response.data[0].productname);
+      });
+  }
+
+  function hightolow(){
+      axios.get('/product/HighToLow/').then(function(response){
+          console.log("name : " + response.data[0].productname);
+      });
+   }
+
+  var searchform = document.getElementById('search-form');
+  searchform.addEventListener('submit', searchProduct);
+  
+  function searchProduct(e){
+     //e.preventDefault();
+      var search = document.getElementById('searchpro').value;
+      axios.post('/product/search/',{search : search}).then(function(response){
+          if(response.data.length === 0)
+          {
+            console.log("Not found");
+            $( "#here" ).load(window.location.href + " #here" );
+          }
+          else{
+           console.log("name : " + response.data[0].productname);
+          }    
+      });
+  }
+
+  var rangeform = document.getElementById('range-form');
+  rangeform.addEventListener('submit', rangeProduct);
+
+  function rangeProduct(e){
+     //e.preventDefault();
+      var low = document.getElementById('low').value;
+      var high = document.getElementById('high').value;
+      axios.post('/product/range/',{low : low, high : high}).then(function(response){
+          if(response.data.length === 0)
+          {
+            console.log("Not found");
+            $( "#here" ).load(window.location.href + " #here" );
+          }
+          else{
+           console.log("name : " + response.data[0].productname);
+          }    
+      });
+  }
+
+
+</script>
+
+

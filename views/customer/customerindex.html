@@ -1,0 +1,337 @@
+<div id="here">
+<div class="wrapper" style="margin-top:-30px">
+    <!-- Sidebar Holder -->
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <h3>WhyWeWant</br>Organic</h3>
+        </div>
+        <ul class="list-unstyled components">
+            <p>Dashboard</p>
+            
+                 <li >
+                {{#if customer.complete}}
+                   
+                    <a data-toggle="pill" href="#myprofile" class="btn btn-info">My Profile</a> </li>
+                     
+                {{else}} 
+                   
+                    <a data-toggle="pill" href="#addprofile" class="btn btn-info">Add Profile</a> 
+                    
+                {{/if}}     
+            </li> 
+            <li class="active"><a data-toggle="pill" href="#order" class="btn btn-info">My Order</a></li>
+            <li><a data-toggle="pill" href="#gift" class="btn btn-info">Gift Cards</a> </li>
+            <li><a data-toggle="pill" href="#addr" class="btn btn-info">Saved Address</a></li>
+        </ul>     
+    </div>
+    <!-- Page Content Holder -->
+    <div id="content">
+        <div class="container-fluid" >
+            <div class="navbar-header">
+                <button type="button" id="sidebarCollapse" class="navbar-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="modal-body">
+                <div class="tab-content"> 
+                    {{#if customer.complete}}
+                        <a href="#" ><div class="alert alert-success"><center>Click here to Participate in Bidding</center> </div></a>
+                    {{else}}
+                        <a  data-toggle="modal" data-target="#myModal1"><div class="alert alert-success"><center>Click here to Participate in Bidding</center></div></a>
+                    {{/if}} 
+
+        {{#if success_msg}}
+          <div class="alert alert-success alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            <center> {{success_msg}} </center>
+          </div>   
+        {{/if}}
+
+        {{#if error_msg}}
+          <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            <center>{{error_msg}}</center> 
+          </div>   
+        {{/if}}
+
+        {{#if error}}
+          <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            <center>{{error}}</center> 
+          </div>  
+        {{/if}}
+
+                    <!-- For get the profile of customer -->       
+                    <div id="myprofile" class="tab-pane fade ">   
+                        <div class="row"> 
+                            <div class="col-md-1"></div>
+                                <div class="col-md-10">
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">My Profile</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="/image/profile.png" class="img-circle img-responsive" width="250px" height="250px"> </div>
+                                                <div class=" col-md-9 col-lg-9 "> 
+                                                    <table class="table table-user-information">
+                                                        <tbody>
+                                                            <tr><td>Name : </td><td>{{customer.name}}</td></tr>
+                                                            <tr><td>Phone : </td><td>{{customer.phone}}</td></tr>
+                                                            <tr><td>Email : </td><td>{{customer.email}}</td></tr>  
+                                                            <tr><td>Address : </td><td>{{customer.address}}</td></tr>
+                                                            <tr><td>City : </td><td>
+                                                            {{customer.city}}</td></tr>
+                                                            <tr><td>State : </td><td> {{customer.state}}</td></tr>
+                                                            <tr><td>Pin Code : </td><td>{{customer.zip}}</td></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer clearfix">
+                                            <span class="pull-right">
+                                            <a data-toggle="pill" href="#editprofile" type="button" class="btn btn-md btn-warning"><i class="glyphicon glyphicon-edit"></i>Edit</a>
+                                            </span>
+                                        </div>   
+                                    </div>
+                                </div>
+                        </div>
+                    </div> 
+          <!-- For get the order of customer -->  
+          <div id="order" class="tab-pane fade in active"> 
+            <div class="row"> 
+              {{#if orders}}
+                {{#each orders}} 
+                  <div class="col-md-8 col-md-offset-2">
+                    <div class="row">
+                      <div class="panel panel-primary">
+                        <div class="panel-heading">Your Orders</div>
+                          <div class="panel-body">
+                            {{#each this.items}}
+                              <div class="col-md-3 thumbnail" >
+                                <img src="{{this.item.product_image}}" class="img-responsive" style="background-color: blue">
+                              </div>
+                              <div class="col-md-8">
+                                <ul class="list-group">
+                                  <li class="list-group-item">Product Name : {{this.item.productname}}</li>
+                                  <li class="list-group-item">Product Quantity : {{this.qty}}</li>
+                                  <li class="list-group-item">Product Price : <i class="fa fa-inr"></i>{{this.price}}</li>
+                                  <li class="list-group-item">Product Weight : {{this.item.weight}} </li>
+                            {{/each}}
+                                  <li class="list-group-item">Order Date : {{this.orderdate}}</li>
+                                  <li class="list-group-item">Order Id : {{this._id}}</li>
+                                </ul>    
+                              </div> 
+                          </div>
+                          <div class="panel-footer">
+                            <strong>Total Price: ${{this.cart.totalPrice}}</strong>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                {{/each}}
+              {{else}}
+                <center><p>You didn't order anything.</p></center>
+              {{/if}}
+            </div>
+          </div> 
+          
+           <!-- show the gift coupons -->  
+          <div id="gift" class="tab-pane fade">   
+            <center><h3>Gift</h3></center>
+          </div>
+           <!-- show the address --> 
+          <div id="addr" class="tab-pane fade">   
+            <center><h3>Address</h3></center>
+          </div>
+          <!-- Add the profile --> 
+          <div id="addprofile" class="tab-pane fade">   
+            <div class="row">
+              <center>Complete Your Profile</center>
+              <div class="col-md-2"></div>
+                <div class="col-md-8 shadow" style="border: 2px solid blue">
+                  <div class="modal-body">
+                    <form role="form" class="form-horizontal" method="post" id="add-form">
+                      <div class="form-group">
+                        <label >Phone</label>
+                      <input type="number" class="form-control"   placeholder="MobileNo." id="aphone" required>
+                      </div>
+                      <div class="form-group">
+                        <label>Address</label>
+                          <textarea class="form-control"  placeholder="address" id="aaddress" required></textarea>   
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <label >City:</label>
+                          <input type="text" class="form-control" placeholder="City" id="acity" required>
+                          </div>
+                          <div class="col-md-4">
+                            <label >State:</label>
+                            <input type="text" class="form-control" placeholder="State" id="astate" required>
+                          </div>
+                          <div class="col-md-4">
+                            <label >Zip:</label>
+                            <input type="text" class="form-control" placeholder="Zip" id="azip" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-4">
+                          <img src="/image/signup.png" height="40px" width="40px">
+                          <button type="submit" class="btn btn-success btn-md" style="font-size: 20px">Submit 
+                          </button>
+                        </div>    
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Edit the profile -->  
+
+            <div id="editprofile" class="tab-pane fade"> 
+              <form role="form" class="form-horizontal" method="put" id="edit-form"> 
+                <div class="row"> 
+                  <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                      <div class="panel panel-info">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">Edit Profile</h3>
+                        </div>
+                        <div class="panel-body">
+                          <div class="row">
+                            <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="/image/profile.png" class="img-circle img-responsive" width="250px" height="250px"> </div>
+                              <div class=" col-md-9 col-lg-9 "> 
+                                <table class="table table-user-information">
+                                  <tbody>
+                                    <tr><td>Name : </td><td>
+                                      <input type="text" id="ename" class="form-control" placeholder="name">
+                                    </td></tr>
+                                    <tr><td>Phone : </td><td> 
+                                       <input type="number" id="ephone" class="form-control" placeholder="Mobile Number">
+                                    </td></tr>
+                                    <tr><td>Address : </td><td>
+                                      <input type="text" id="eaddress" class="form-control" placeholder="Address">
+                                    </td></tr>
+                                    <tr><td>City : </td><td> 
+                                      <input type="text" id="ecity" class="form-control" placeholder="City">
+                                    </td></tr>
+                                    <tr><td>State : </td><td> 
+                                      <input type="text" id="estate" class="form-control" placeholder="State">
+                                    </td></tr>
+                                    <tr><td>Pin Code : </td><td>
+                                      <input type="number" id="ezip" class="form-control" placeholder="Pin Code">
+                                    </td></tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="panel-footer">
+                          <a data-toggle="pill" href="#myprofile" ><span class="glyphicon glyphicon-backward"></span> Go Back</a>          
+                          <button type="submit" class="btn btn-success btn-md btn-warning pull-right">
+                          <span><i class="glyphicon glyphicon-edit"></i> Save </span></button>      
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </form>
+            </div>
+
+        </div>
+      </div>
+    </div>     
+  </div>
+</div>
+</div>
+
+<div class="modal fade" id="myModal1" role="dialog" style="margin-top: 120px">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Information</h4>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-danger">
+           <center><h4>First Complete Your Profile</h4></center>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+<script >
+  var editForm = document.getElementById('edit-form');
+  editForm.addEventListener('submit', editProfile);
+  function editProfile(e){
+      // Prevent actual submit
+      e.preventDefault();
+      var name = document.getElementById('ename').value;
+      var phone = document.getElementById('ephone').value;
+      var address = document.getElementById('eaddress').value;
+      var city = document.getElementById('ecity').value;
+      var state = document.getElementById('estate').value;
+      var zip = document.getElementById('ezip').value;
+
+      axios.put('/customer/editprofile/{{customer._id}}',
+        {
+            name : name,
+            phone : phone,
+            address : address,
+            city : city,
+            state : state,
+            zip : zip
+        }).then(function(response){
+              $( "#here" ).load(window.location.href + " #here" );
+              console.log("Profile changed!");
+          });
+  }
+
+  var addForm = document.getElementById('add-form');
+  addForm.addEventListener('submit', addProfile);
+  function addProfile(e){
+      // Prevent actual submit
+      e.preventDefault();
+      var phone = document.getElementById('aphone').value;
+      var address = document.getElementById('aaddress').value;
+      var city = document.getElementById('acity').value;
+      var state = document.getElementById('astate').value;
+      var zip = document.getElementById('azip').value;
+
+      axios.post('/customer/profileadd/{{user._id}}',
+        {
+            phone : phone,
+            address : address,
+            city : city,
+            state : state,
+            zip : zip
+        }).then(function(response){
+              $( "#here" ).load(window.location.href + " #here" );
+              console.log("Profile saved!");
+          });
+  }
+</script>
+ 
+  

@@ -1,0 +1,678 @@
+<div id="here">
+<div class="wrapper" style="margin-top: -30px">
+  <!-- Sidebar Holder -->
+  <div id="sidebar">
+    <div class="sidebar-header">
+      <h3 style="margin-left: 10%">WhyWeWant</br>
+        <span style="margin-left: 10%"> Organic</span>
+      </h3>
+    </div>
+    <ul class="list-unstyled components">
+      <p>Dashboard</p>
+      <li class="active" ><a data-toggle="pill" href="#home" class="btn btn-info">Home</a></li>
+      <li>
+        
+        {{#if manufacturer}}
+          {{#if manufacturer.status}}
+            <a data-toggle="pill" href="#addproduct" class="btn btn-info">Add Product</a>
+          {{else}}
+            <a type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal1">Add Product</a>    
+          {{/if}}
+        {{else}}
+          <a type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal2">Add Product</a>
+        {{/if}}
+                      
+      </li>
+      <li>
+        
+      {{#if manufacturer.subscribe}} 
+        {{#if bid.bidstart}} 
+          <a href="/product/bidding/" class="btn btn-info">Participate in Bidding</a>
+        {{else}}
+          <a type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal6">Participate in Bidding</a>
+        {{/if}} 
+      {{/if}}
+    
+      </li>
+      <li><a data-toggle="pill" href="#product" class="btn btn-info" onclick="productStatus();">Added Product Status</a></li>
+         <li>
+        {{#if manufacturer}}
+        
+          <a data-toggle="pill" href="#myprofile" class="btn btn-info">My Profile</a>
+         
+           
+        {{else}}
+       
+          <a data-toggle="pill" href="#addprofile" class="btn btn-info">Add Profile</a> 
+         
+        {{/if}}
+         </li>
+         
+    </ul>    
+  </div>
+  <!-- Page Content Holder -->
+  <div id="content">
+    <div class="container-fluid" >
+      <div class="navbar-header">
+        <button type="button" id="sidebarCollapse" class="navbar-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div> 
+    </div>
+
+    <!-- Tab Content Holder -->
+    <div class="tab-content">
+      <div class="modal-body">
+        <div class="tab-content">
+         
+          {{#if manufacturer}}
+            {{#if manufacturer.status}}
+              {{#if manufacturer.subscribe}} 
+                <h4>Now you can start participation in bidding</h4>
+              {{else}}
+                <a href="#" type="button" onclick="subscribe();"><div class="alert alert-success"><center>Click here to Participate in Bidding </center> </div></a>
+              {{/if}}
+            {{else}}
+              <a  data-toggle="modal" data-target="#myModal4"><div class="alert alert-success"><center>Click here to Participate in Bidding</center></div></a>
+            {{/if}}
+          {{else}}
+            <a  data-toggle="modal" data-target="#myModal5"><div class="alert alert-success"><center>Cliak here to Participate in Bidding</center></div></a> 
+          {{/if}}
+         
+
+          {{#if success_msg}}
+          <div class="alert alert-success alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            <center> {{success_msg}} </center>
+          </div>   
+        {{/if}}
+
+        {{#if error_msg}}
+          <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            <center>{{error_msg}}</center> 
+          </div>   
+        {{/if}}
+
+        {{#if error}}
+          <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            <center>{{error}}</center> 
+          </div>  
+        {{/if}}
+
+          <!-- Home page for manufacture -->
+          <div id="home" class="tab-pane fade in active">   
+            <div class="jumbotron">
+              <h2 class="text-warning">Welcome to <span class="text-info">ORGANIC</span> 
+                <span style="color:red">AIBI</span> {{user.name}}. 
+              </h2>      
+              <h3 class="text-danger"><i>Introduce First Time In India... Organic products with exact Coordinats of the Field.</i></h3>
+            </div>
+            <div class="row">
+              <div class="col-md-4 text-info" >
+                <center><h3>THE FARMERS</h3></center> 
+                <p style="margin-left: 20%">AI Connecting farmers</br>
+                Empowering farmers, partners</br> 
+                and customers</p>
+              </div>
+              <div class="col-md-4 text-warning">
+                <center><h3>INNOVATIVE RESEARCHERS</h3></center> 
+                <p style="margin-left: 10%">Power of plant extracts</br>
+                Products spanning across the categories of</br> 
+                beauty, wellness and nutrition</p>
+              </div>
+              <div class="col-md-4 text-danger">
+                <center><h3>HEALTHY CONSUMERS</h3></center> 
+                <p style="margin-left: 10%">Adopting back-to-basics mind-set</br>
+                Focusing on simple ingredients</br>
+                and cleaner processed foods</p>
+              </div>
+            </div> 
+          </div>
+
+          <!-- showing all the products which are added by manufacturer -->
+          <div id="product" class="tab-pane fade">
+            {{#if product}}  
+              <div class="col-md-4 col-sm-4"></div>
+              <div class="col-sm-3 col-md-3" ></div>
+              <div class="panel panel-primary" style="margin-top: 50px">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Added Products</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    {{#each product}}
+                      <div class="col-md-6">
+                        <div class="col-md-6" >
+                          <h4 >{{this.productname}}</h4>
+                          <p>{{this.description}}</p>
+                          {{#if this.status}}
+                            Accetpted       
+                          {{else}}
+                            Not Accepted
+                          {{/if}}  
+                          <a class="btn btn-primary" href="#">View Details</a>
+                        </div>
+                        <div class="col-md-6" >
+                          <img class="thumbnail" src="{{this.product_image}}" height="250x" width="250" class="img-responsive" style="background-color: blue">
+                        </div>
+                      </div>
+                    {{/each}}
+                  </div>  
+                </div>         
+              </div>
+            {{else}}
+              <center>You did not add any Product for sale</center>
+            {{/if}}      
+          </div>
+
+
+          <!-- Code for addition of product -->
+          <div id="addproduct" class="tab-pane fade ">
+            <div class="row">
+              <center>Add Product</center>
+              <div class="col-md-2"></div>
+              <div class="col-md-8 shadow" style="border: 2px solid blue" >
+                <div class="modal-body">
+                  <form role="form" class="form-horizontal" method="post" action="/product/addproduct/{{user._id}}" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label>Product Name</label>
+      <input type="text" class="form-control" placeholder="Product Name" name="aproductname" required>
+                    </div>  
+
+                    <div class="form-group">
+                      <label >Product Category</label>
+                      <input type="text" class="form-control"   placeholder="eg: Rice,Pulse,etc.." name="acategory" required>
+                    </div>
+
+                    <div class="form-group">
+                      <label >Product Sub Category(If any) </label>
+                      <input type="text" class="form-control" placeholder="eg: Basmati,Tur Dal etc.." name="asubcategory" >
+                    </div>
+                      
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label >Product Weight:</label>
+                          <input type="number" class="form-control" placeholder="eg:5Kg,10Kg..." name="aweight" step="0.001" required>
+                        </div>
+
+                        <div class="col-md-4">
+                          <label >Product Quantity:</label>
+                          <input type="number" class="form-control" placeholder="eg:10,15...." name="aquantity" required>
+                        </div>
+
+                        <div class="col-md-4">
+                          <label >Product Price:</label>
+                          <input type="number" class="form-control" placeholder="Price per unit" name="aprice" step="0.001" required>
+                        </div>
+                      </div>
+                    </div>
+       
+                    <div class="form-group">
+                      <label >Manufacturing Date</label>
+                        <input type="date" class="form-control"   placeholder="Manufacturing Date" name="amanufacturingdate" required>
+                    </div>
+
+                    <div class="form-group">
+                      <label >Best Before</label>
+                        <input type="date" class="form-control"   placeholder="Best Before" name="abestbefore" required>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Product Information</label>
+      <textarea class="form-control" type="text" placeholder="Product Information" name="adescription" required></textarea>   
+                    </div>
+
+                    <div class="form-group">
+                      <label>Product Location</label>
+                      <textarea class="form-control"  placeholder="address" name="alocation" required></textarea>   
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label >City:</label>
+                          <input type="text" class="form-control" placeholder="City" name="acity" required>
+                        </div>
+
+                        <div class="col-md-4">
+                          <label >State</label>               
+                          <input type="text" class="form-control" placeholder="State" name="astate" required>
+                        </div>
+
+                        <div class="col-md-4">
+                          <label >Pin Code</label>
+                          <input type="text" class="form-control" placeholder="Zip" name="azip" required>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="file" >USDA/NGOP Certificate</label>
+                        <div class="labe" >Choose a file :</div>
+                        <input type="file" class="form-control" name="certificateimage" required>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="file" >Product Image</label>
+                      <input class="form-control" type="file" name="product_image" required>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6"></div>
+                      <div class="col-md-4">
+                        <img src="/image/signup.png" height="40px" width="40px">
+                        <button type="submit" class="btn btn-success btn-md" style="font-size: 20px">Add Product
+                        </button>
+                      </div>    
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Show the profile of manufacture -->
+          <div id="myprofile" class="tab-pane fade">    
+            <div class="row"> 
+              <div class="col-md-1"></div>
+              <div class="col-md-10">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">My Profile</h3>
+                  </div>
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="/image/profile.png" class="img-circle img-responsive" width="250px" height="250px"> </div>
+                      <div class=" col-md-9 col-lg-9 "> 
+                        <table class="table table-user-information">
+                          <tbody>
+                            <tr><td>Name : </td><td>{{manufacturer.name}}</td></tr>
+                            <tr><td>Phone : </td><td>{{manufacturer.phone}}</td></tr>
+                            <tr><td>Email : </td><td>{{manufacturer.email}}</td></tr>  
+                            <tr><td>Address : </td><td>{{manufacturer.address}}</td></tr>
+                            <tr><td>City : </td><td>{{manufacturer.city}}</td></tr>
+                            <tr><td>State : </td><td> {{manufacturer.state}}</td></tr>
+                            <tr><td>Pin Code : </td><td>{{manufacturer.zip}}</td></tr>
+                          </tbody>
+                        </table>
+                        <a href="#" class="btn btn-primary">My Products Performance</a>
+                        <a href="#" class="btn btn-primary">Other's Products Performance</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel-footer">
+                    {{#if manufacturer.status}}
+                      Accepted :<img src="/image/accept.jpg" height="30px" width="30px">
+                    {{else}}
+                      Accepted :<span class="text-danger">Under Review</span>
+                    {{/if}}
+                    <span class="pull-right">
+                      <a data-toggle="pill" href="#editprofile" type="button" class="btn btn-md btn-warning"><i class="glyphicon glyphicon-edit"></i>Edit</a>  
+                    </span>
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- code for edit profile -->
+          <div id="editprofile" class="tab-pane fade">
+            <form role="form" class="form-horizontal" method="put" id="edit-form"> 
+              <div class="row"> 
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                  <div class="panel panel-info">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Edit Profile</h3>
+                    </div>
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="/image/profile.png" class="img-circle img-responsive" width="250px" height="250px"> 
+                        </div>
+                        <div class=" col-md-9 col-lg-9 "> 
+                          <table class="table table-user-information">
+                            <tbody>
+                              <tr><td>Name : </td><td>
+                                <input type="text" id="ename" class="form-control" placeholder="name">
+                              </td></tr>
+                              <tr><td>Phone : </td><td> 
+                                <input type="number" id="ephone" class="form-control" placeholder="Mobile Number">
+                              </td></tr>
+                              <tr><td>Address : </td><td>
+                                <input type="text" id="eaddress" class="form-control" placeholder="Address">
+                              </td></tr>
+                              <tr><td>City : </td><td> 
+                                <input type="text" id="ecity" class="form-control" placeholder="City">
+                              </td></tr>
+                              <tr><td>State : </td><td> 
+                                <input type="text" id="estate" class="form-control" placeholder="State">
+                              </td></tr>
+                              <tr><td>Pin Code : </td><td>
+                                <input type="number" id="ezip" class="form-control" placeholder="Pin Code">
+                              </td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel-footer">
+                      <a data-toggle="pill" href="#home" ><span class="glyphicon glyphicon-backward"></span> Go Back</a>          
+                      <button type="submit" class="btn btn-success btn-md btn-warning pull-right">
+                        <span><i class="glyphicon glyphicon-edit"></i> Save </span>
+                      </button>          
+                    </div>  
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+    
+          <!-- code for add profile -->
+
+          <div id="addprofile" class="tab-pane fade">
+            <div class="row">
+              <center>Complete Your Profile</center>
+              <div class="col-md-2"></div>
+              <div class="col-md-8 shadow" style="border: 2px solid blue">
+                <div class="modal-body">
+                  <form role="form" class="form-horizontal" method="post" id="add-form">
+                    <div class="form-group">
+                      <label>Phone</label>
+                      <input type="number" class="form-control"   placeholder="MobileNo." id="
+                      aphone" required>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Address</label>
+                      <textarea class="form-control" type="text" placeholder="address" id="aaddress" required></textarea>   
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label >City:</label>
+                          <input type="text" class="form-control" placeholder="City" id="acity" required>
+                        </div>
+                        <div class="col-md-4">
+                          <label >State:</label>
+                          <input type="text" class="form-control" placeholder="State" id="astate" required>
+                        </div>
+                        <div class="col-md-4">
+                          <label >Zip:</label>
+                          <input type="text" class="form-control" placeholder="Zip" is="azip" required>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="file" >USDA/NGOP Certificate</label>
+                        <div class="labe" >Choose a file :</div>
+                        <input type="file" id="file" >
+                      <p>&nbsp;</p>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6"></div>
+                      <div class="col-md-4">
+                        <img src="/image/signup.png" height="40px" width="40px">
+                        <button type="submit" class="btn btn-success btn-md" style="font-size: 20px">Submit 
+                        </button>
+                      </div>    
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+        </div>
+      </div>     
+    </div>                
+  </div>
+</div>
+
+</div>
+
+ 
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal1" role="dialog" style="margin-top: 120px">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Information</h4>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-danger">
+           <center><h4>Your profile is under reviewed</h4></center>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+  <div class="modal fade" id="myModal4" role="dialog" style="margin-top: 120px">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Information</h4>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-danger">
+           <center><h4>Your profile is under reviewed</h4></center>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="myModal2" role="dialog" style="margin-top: 120px">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Information</h4>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-danger">
+             <center><h4>First Complete your profile</h4></center>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+   <div class="modal fade" id="myModal5" role="dialog" style="margin-top: 120px">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Information</h4>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-danger">
+             <center><h4>First Complete your profile</h4></center>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+  <div class="modal fade" id="myModal6" role="dialog" style="margin-top: 120px">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Information</h4>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-danger">
+           <center><h4>Bidding is not started By Admin Or refresh the page</h4></center>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+<script >
+  /*var addProductForm = document.getElementById('add-product');
+  addProductForm.addEventListener('submit', addProduct);
+  function addProduct(e){
+      // Prevent actual submit
+      e.preventDefault();                                                          
+      var productname=document.getElementById('aproductname').value;
+      var quantity = document.getElementById('aquantity').value;
+      var price = document.getElementById('aprice').value;
+      var location = document.getElementById('alocation').value;
+      var category = document.getElementById('acategory').value;
+      var subcategory = document.getElementById('asubcategory').value;
+      var manufacturingdate = document.getElementById('amanufacturingdate').value;
+      var bestbefore = document.getElementById('abestbefore').value;
+      var description = document.getElementById('adescription').value;
+      var city = document.getElementById('acity').value;
+      var state = document.getElementById('astate').value;
+      var zip = document.getElementById('azip').value;
+      var weight =document.getElementById('aweight').value;
+      var product_image = document.getElementById('product_image').value;
+      var certificateimage = document.getElementById('certificateimage').value;
+
+      axios.post('/product/addproduct/{{user._id}}',
+        {
+            productname: productname,
+            quantity:quantity,
+            price:price,
+            location: location,
+            category : category,
+            subcategory: subcategory,
+            manufacturingdate: manufacturingdate,
+            bestbefore : bestbefore,
+            description : description,
+            city : city,
+            state : state,
+            zip : zip,
+            weight : weight,
+            product_image : product_image,
+            certificateimage : certificateimage
+
+        }).then(function(response){
+              $( "#here" ).load(window.location.href + " #here" );
+              console.log("Product saved!");
+          });
+  }*/
+
+  var editForm = document.getElementById('edit-form');
+  editForm.addEventListener('submit', editProfile);
+  function editProfile(e){
+      // Prevent actual submit
+      e.preventDefault();
+      var name = document.getElementById('ename').value;
+      var phone = document.getElementById('ephone').value;
+      var address = document.getElementById('eaddress').value;
+      var city = document.getElementById('ecity').value;
+      var state = document.getElementById('estate').value;
+      var zip = document.getElementById('ezip').value;
+
+      axios.put('/manufacture/editprofile/{{manufacturer._id}}',
+        {
+            name : name,
+            phone : phone,
+            address : address,
+            city : city,
+            state : state,
+            zip : zip
+        }).then(function(response){
+              $( "#here" ).load(window.location.href + " #here" );
+              console.log("Profile changed!");
+          });
+  }
+
+  var addForm = document.getElementById('add-form');
+  addForm.addEventListener('submit', addProfile);
+  function addProfile(e){
+      // Prevent actual submit
+      e.preventDefault();
+      var phone = document.getElementById('aphone').value;
+      var address = document.getElementById('aaddress').value;
+      var city = document.getElementById('acity').value;
+      var state = document.getElementById('astate').value;
+      var zip = document.getElementById('azip').value;
+
+      axios.put('/manufacture/profileadd/{{user._id}}',
+        {
+            name : name,
+            phone : phone,
+            address : address,
+            city : city,
+            state : state,
+            zip : zip
+        }).then(function(response){
+              $( "#here" ).load(window.location.href + " #here" );
+              console.log("Profile changed!");
+          });
+  }
+
+  function subscribe(){
+      axios.get('/manufacture/subscribe/{{manufacturer._id}}').then(function(response){
+         $( "#here" ).load(window.location.href + " #here" );
+         console.log("Subscribed for bidding!");
+      });
+  }
+
+  function productStatus(){
+      axios.get('/product/status/{{user._id}}').then(function(response){
+          console.log("Name : "  + response.data[0].productname) ;
+
+      });  
+  }
+</script> 

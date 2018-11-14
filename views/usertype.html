@@ -1,0 +1,31 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<form method="post" action="/usertype/edit/{{user._id}}" style="margin-top: 25%">
+    <div class="form-group">
+    	<center>Usertype</center>
+    	<br>
+        <div class="row">       
+            <div class="col-md-2"><img src="/image/user.png" height="30px" width="30px" class="pull-right"></label> </div>
+            <div class="col-md-9">
+                <select class="form-control" id="usertype" name="usertype">
+                    <option value="Customer">Customer</option>
+                    <option value="Manufacturer">Manufacturer</option>
+                    <option value="Supplier">Supplier</option>       
+                </select>
+            </div>
+        </div> 
+    </div>
+   <input type="hidden" name="_csrf" value="{{ csrfToken }}"> 
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-4">
+            <img src="/image/signup.png" height="40px" width="40px">
+            <button type="submit" class="btn btn-success btn-md" name="submit" style="font-size: 20px">Submit</button>
+        </div> 
+        <div class="col-md-4"></div>
+</form>
+		</div>
+	</div>
+</div>
